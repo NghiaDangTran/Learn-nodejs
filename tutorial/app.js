@@ -1,19 +1,17 @@
-const { readFileSync, writeFileSync, readFile } = require('fs')
-    // const fs = require('fs
+const { readFile } = require('fs')
 
-const data = readFileSync('./tutorial/content/first.txt', 'utf8', (err, result) => {
-    if (err) {
-        console.log(err)
-        return
-    }
-    const first = result;
-    readFile('./tutorial/content/first.txt', 'utf8', (err, result) => {
-        if (err) {
-            console.log(err)
-            return
-        }
-        const second = result;
-        writeFileSync('./tutorial/content/result-async.txt')
+const getText = (path) => {
+    return new Promise((resolve, reject) => {
+
+
+        readFile(path, "utf8", (err, data) => {
+            if (err) {
+
+                reject(err)
+            } else {
+                resolve(data)
+            }
+        })
     })
-})
-console.log(data)
+}
+getText("./content/result.txt").then(result => console.log(result)).catch((err) => console.log(err))
