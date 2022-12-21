@@ -1,0 +1,263 @@
+openapi: 3.0.0
+info:
+  title: Job Sekker
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://job-finder-5h1s.onrender.com/api/v1
+  variables: {}
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisterUserRequest'
+              - example:
+                  name: jhon
+                  email: 24e2333@3g2m22ail.com
+                  password: nghiad
+            example:
+              name: jhon
+              email: 24e2333@3g2m22ail.com
+              password: nghiad
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/LoginRequest'
+              - example:
+                  email: 24e2333@3g2m22ail.com
+                  password: nghiad
+            example:
+              email: 24e2333@3g2m22ail.com
+              password: nghiad
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /jobs:
+    get:
+      tags:
+      - Jobs
+      summary: Get All Jobs
+      operationId: GetAllJobs
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    post:
+      tags:
+      - Jobs
+      summary: Create Job
+      operationId: CreateJob
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateJobRequest'
+              - example:
+                  company: samsung
+                  position: free
+            example:
+              company: samsung
+              position: free
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+
+    
+  /jobs/{id}:
+    get:
+      tags:
+      - Jobs
+      summary: Get Job By Id
+      operationId: GetJobById
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        explode: true
+        schema:
+          type: string
+          example: 63a10a196fda6e14e970307e
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    patch:
+      tags:
+      - Jobs
+      summary: Patch job by id
+      operationId: Patchjobbyid
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 63a10a196fda6e14e970307e
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/PatchjobbyidRequest'
+              - example:
+                  company: applt
+            example:
+              company: applt
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+    delete:
+      tags:
+      - Jobs
+      summary: Delete job by id
+      operationId: Deletejobbyid
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 63a10a196fda6e14e970307e
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: jhon
+        email: 24e2333@3g2m22ail.com
+        password: nghiad
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: 24e2333@3g2m22ail.com
+        password: nghiad
+    CreateJobRequest:
+      title: CreateJobRequest
+      required:
+      - company
+      - position
+      type: object
+      properties:
+        company:
+          type: string
+        position:
+          type: string
+      example:
+        company: samsung
+        position: free
+    PatchjobbyidRequest:
+      title: PatchjobbyidRequest
+      required:
+      - company
+      type: object
+      properties:
+        company:
+          type: string
+      example:
+        company: applt
+    DeletejobbyidRequest:
+      title: DeletejobbyidRequest
+      required:
+      - company
+      type: object
+      properties:
+        company:
+          type: string
+      example:
+        company: applt
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Auth
+  description: ''
+- name: Jobs
+  description: ''
